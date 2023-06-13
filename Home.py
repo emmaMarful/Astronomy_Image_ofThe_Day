@@ -1,3 +1,4 @@
+import PIL
 import streamlit as web_ui
 import requests
 
@@ -28,12 +29,17 @@ img_url = strApiData["url"]
 # create a jpg to say apod
 crt_img = "image.jpg"
 extract_img = requests.get(img_url)
-
 with open(crt_img, "wb") as imageSave:
     imageSave.write(extract_img.content)
 
 # display extracted web image to the web
-web_ui.image("image.jpg")
+try:
+    web_ui.image("image.jpg")
+except PIL.UnidentifiedImageError:
+    vid = "https://www.youtube.com/embed/YEXuGgRCyS0?rel=0"
+    web_ui.video(vid)
+
+
 date = f"Date: {strApiData['date']}"
 web_ui.write(date)
 
