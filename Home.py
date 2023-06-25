@@ -26,14 +26,14 @@ web_ui.header(strApiData["title"])
 # extract apod image
 img_url = strApiData["url"]
 
-# create a jpg to say apod
-crt_img = "image.jpg"
-extract_img = requests.get(img_url)
-with open(crt_img, "wb") as imageSave:
-    imageSave.write(extract_img.content)
-
-# display extracted web image to the web
 try:
+    # create a jpg to save apod
+    crt_img = "image.jpg"
+    extract_img = requests.get(img_url)
+    with open(crt_img, "wb") as imageSave:
+        imageSave.write(extract_img.content)
+
+    # display extracted web image to the web
     web_ui.image("image.jpg")
 except PIL.UnidentifiedImageError:
     vid = "https://www.youtube.com/embed/YEXuGgRCyS0?rel=0"
